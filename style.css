@@ -1,0 +1,61 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: wheat;
+}
+#header{
+    width: 100vw;
+    height: 25vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+#logo>h1{
+    margin: 0;
+    font-size: 4rem;
+    margin: 3rem;
+    background-color: burlywood;
+    padding: 20px;
+    border:5px solid rgb(94, 50, 20);
+    border-radius: 20px;
+}
+#plant{
+    background-image: url(pot.svg);
+    background-size: cover;
+    width: 20vh;
+    height: 20vh;
+    margin-left: 10vw;
+}
+#books{
+    width: 100vw;
+    height: 75vh;
+    display: grid;
+    grid-template-rows: repeat(2,0.1fr 1fr) 0.1fr;
+}
+.shelf:nth-child(odd){
+    background-color: rgb(139, 87, 27);
+    border-radius: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.placeable{
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+}
+.book{
+    /* background-color: rgb(54, 38, 17); */
+    background-image: url(book.svg);
+    background-size: cover;
+    width: 25vh;  
+    height: 25vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap:10px;
+}
+.book>p{
+    margin: 0;
+}
