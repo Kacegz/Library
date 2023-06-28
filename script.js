@@ -1,22 +1,79 @@
 let myLibrary = [];
+let id=0;
 const booksbox=document.querySelector("#books")
 let books=document.querySelectorAll(".placeable");
 const add=document.querySelector("#addbook");
 add.addEventListener('click',addNewBook);
-addBookToLibrary("Hobbit","Tolkien",298,"Not read yet");
-addBookToLibrary("witcher","sapkowski",521,"read");
+addBookToLibrary("Hobbit","Tolkien",310,"Not read yet");
+addBookToLibrary("Witcher","A.Sapkowski",343,"Already read");
+books[0].textContent="";
+let shelfindex=0;
+let counter=0;
+function Book(title,author,pages,read,id){
+    this.title=title;
+    this.author=author;
+    this.pages=pages;
+    this.read=read;
+    this.id=id;
+    this.display=function(){
+        let book=document.createElement('div');
+        book.classList.add("book");
+        let title=document.createElement('h1');
+        let author=document.createElement('h2');
+        let pages=document.createElement('p');
+        let read=document.createElement('p');
+        title.textContent=this.title
+        author.textContent=this.author
+        pages.textContent=this.pages
+        read.textContent=this.read
+        book.appendChild(title)
+        book.appendChild(author)
+        book.appendChild(pages)
+        book.appendChild(read)
+        let choices=document.createElement('div');
+        choices.id="choiceboxes"
+        let remove=document.createElement('div');
+        remove.classList.add("remove")
+        remove.id=this.id;
+        book.id=this.id
+        let change=document.createElement('div');
+        change.classList.add("change")
+        change.id=this.id;
+        change.addEventListener('click',this.changeRead)
+        //book.appendChild(change)
+        remove.addEventListener('click',this.removeBook)
+        //book.appendChild(remove)
+        choices.appendChild(change);
+        choices.appendChild(remove);
+        book.appendChild(choices)
+        books[shelfindex].appendChild(book);
+    }
 
-function Book(title,author,pages,read){
-    this.title=title
-    this.author=author
-    this.pages=pages
-    this.read=read
-    this.info=function(){
-        return title+" by "+author+", "+pages+" pages, "+read;
+
+    this.removeBook=()=>{
+        console.log(this)
+        let shelf = document.querySelector(".placeable")
+        console.log(myLibrary[document.getElementById(this)])
+        let book=document.getElementById(this.id)
+        console.log(book)
+        if(book.parentNode){
+            book.parentNode.removeChild(book);
+        }
+        delete myLibrary[this.id]
+    }
+    this.changeRead=()=>{
+        let thisbook=document.getElementById(this.id).getElementsByTagName('p')[1];
+        console.log(thisbook)
+        if (this.read==="Not read yet"){
+            thisbook.textContent="Already read";
+            return this.read="Already read";
+        }else{
+            thisbook.textContent="Not read yet";
+            return this.read="Not read yet";
+        }
     }
 }
-let counter=2;
-let shelfindex=0;
+
 function addNewBook(event){
     event.preventDefault()
     let newTitle=document.querySelector("#title").value;
@@ -32,16 +89,18 @@ function addNewBook(event){
         return;
     }
     if(isNaN(newPages)){
-        console.log("hey")
         document.querySelector("#pages").setAttribute("style","border-color:red")
         return;
     }
     document.querySelector("#pages").setAttribute("style","border-color:green")
-    addBookToLibrary(newTitle,newAuthor,newPages,newRead);
-    displayNew(newTitle,newAuthor,newPages,newRead);
-    counter++;
-    if(counter%4===0){
-        shelfindex=shelfindex+1;
+    addBookToLibrary(newTitle,newAuthor,newPages,newRead,id);
+    //displayNew(newTitle,newAuthor,newPages,newRead,id);
+    /*books.forEach(shelf => {
+        shelf.textContent="";
+    });
+    displayAll();*/
+    if(myLibrary.slice(-1)[0].id%4==0){
+        shelfindex++;
         let shelf=document.createElement('div');
         shelf.classList.add("shelf");
         let placeableshelf=document.createElement('div');
@@ -51,35 +110,23 @@ function addNewBook(event){
         booksbox.appendChild(shelf);
         books=document.querySelectorAll(".placeable");
     }
+    myLibrary.slice(-1)[0].display()
 }
 
 function addBookToLibrary(title,author,pages,read) {
-    let newBook=new Book(title,author,pages,read);
+    let newBook=new Book(title,author,pages,read,id);
+    id++;
     myLibrary.push(newBook);
 }
-
-
-function displayBooks(){
-    books[0].textContent="";
-    for (let num in myLibrary){
-        let book=document.createElement('div');
-        book.classList.add("book");
-        let title=document.createElement('h1');
-        let author=document.createElement('h2');
-        let pages=document.createElement('p');
-        let read=document.createElement('p');
-        title.textContent=myLibrary[num].title
-        author.textContent=myLibrary[num].author
-        pages.textContent=myLibrary[num].pages
-        read.textContent=myLibrary[num].read
-        book.appendChild(title)
-        book.appendChild(author)
-        book.appendChild(pages)
-        book.appendChild(read)
-        books[0].appendChild(book);
-    }
+function displayAll(){
+    myLibrary.forEach(book => {
+        console.log(book.id)
+        myLibrary[book.id].display();
+    });
 }
-function displayNew(newtitle,newauthor,newpages,newread){
+displayAll();
+/*
+function displayNew(newtitle,newauthor,newpages,newread,id){
     let book=document.createElement('div');
     book.classList.add("book");
     let title=document.createElement('h1');
@@ -95,6 +142,5 @@ function displayNew(newtitle,newauthor,newpages,newread){
     book.appendChild(pages)
     book.appendChild(read)
     books[shelfindex].appendChild(book);
-}
-
-displayBooks();
+    
+}*/
