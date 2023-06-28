@@ -74,6 +74,7 @@ form{
     flex-direction: column;
     gap: 5px;
     align-items:center;
+    justify-content: center;
 }
 .newbook{
     display: flex;
