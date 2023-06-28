@@ -58,6 +58,7 @@ html,body{
     align-items: center;
     flex-direction: column;
     padding-left: 10px;
+    border-bottom: 1px solid black;
 }
 .book>h1{
     padding-top: 10px;
