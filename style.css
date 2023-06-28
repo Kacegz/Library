@@ -5,8 +5,6 @@ html,body{
     font-family: sans-serif;
     background-color: wheat;
     font-family: 'Courgette', cursive;
-
-    
 }
 #header{
     width: 100vw;
@@ -56,10 +54,13 @@ html,body{
     width: 25vh;  
     height: 25vh; 
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
-    gap:10px;
+    padding-left: 10px;
+}
+.book>h1{
+    padding-top: 10px;
 }
 .book>p,.book>h1,.book>h2{
     margin: 0;
@@ -102,10 +103,33 @@ input[type="submit"]{
 input[type="submit"]:active{
     transform: scale(0.9);
 }
-#delete{
-    align-self: flex-end;
-    justify-self: end;
-    background-color: red;
+.remove{
+    align-self: start;
+    background: url("remove.svg");
+    background-size: contain;
+    filter: invert(19%) sepia(73%) saturate(3516%) hue-rotate(346deg) brightness(82%) contrast(104%);
     width: 20px;
     height: 20px;
+}
+.remove:hover{
+    transform: scale(1.2);
+}
+.change{
+    align-self: start;
+    background-image: url("readstatus.svg");
+    background-size: contain;
+    filter: invert(80%) sepia(53%) saturate(1031%) hue-rotate(6deg) brightness(91%) contrast(90%);
+    width: 20px;
+    height: 20px;
+}
+.change:hover{
+    transform: scale(1.2);
+}
+.change:active{
+    transform: scale(1);
+}
+#choiceboxes{
+    width:100%;
+    display: flex;
+    justify-content: space-evenly;
 }
